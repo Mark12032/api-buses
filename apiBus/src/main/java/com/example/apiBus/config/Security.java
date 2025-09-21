@@ -2,6 +2,7 @@ package com.example.apiBus.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
@@ -17,17 +18,18 @@ public class Security {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/bus/**").authenticated()
                         .anyRequest().permitAll()
                 )
-                .httpBasic(Customizer.withDefaults()); // ✅ forma recomendada
+                .httpBasic(Customizer.withDefaults());
         return http.build();
     }
     @Bean
     public UserDetailsService users() {
         return new InMemoryUserDetailsManager(
                 User.withUsername("admin")
-                        .password("{noop}1234") // {noop} evita encriptar, solo para pruebas
+                        .password("{noop}1234")
                         .roles("USER")
                         .build()
         );
