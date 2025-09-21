@@ -1,5 +1,5 @@
 api-buses/
 │
-├─ backend/   <-- Spring Boot
-└─ frontend/  <-- React
+├─ backend/   ← Ejecutar desde aquí (Spring Boot)
+└─ frontend/  ← Ejecutar desde aquí (React)
 
